@@ -44,7 +44,7 @@ def edit_client(email:str):
                 if new_email == "":
                     new_email = client[1]
 
-                clients[clients.index(client)] = [new_name, new_email]      # update line with new info 
+                clients[clients.index(client)] = [new_name, new_email] # update line with new info
                 break
         else:
             print(f"client {email} not found.")
@@ -53,7 +53,7 @@ def edit_client(email:str):
     with open(clientsFile, mode='w', newline='') as file:     # write updated client list
         writer = csv.writer(file)
         writer.writerows(clients)
-    print(f"Client information has been updated.")
+    print("Client information has been updated.")
 
 
 def delete_client(email:str):
