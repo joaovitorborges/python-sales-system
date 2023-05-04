@@ -54,7 +54,6 @@ def edit_client(email:str):
 
 
 def delete_client(email:str):
-
     clients = utils.get_all_objects(clientsFile)
     for client in clients:
         if client[0] == email:

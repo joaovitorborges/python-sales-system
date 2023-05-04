@@ -28,12 +28,24 @@ def get_client_addresses(client_mail:str):
         print("Client does not exist")
         return []
 
-# this will not work, as it overwrites entire file. Must get all objects and use .remove
 def delete_client_address(client_mail:str):
-    addresses = get_client_addresses(client_mail)
-    if len(addresses) != 0:
-        delete = input("type the number of the address you want to delete: ")
-        while delete not in range(1,len(addresses)):
-            delete = input("please insert a valid range: ")
-        addresses.pop(delete)
-    utils.update_all_objects(addressFile, addresses)
+    if utils.get_single_object(client_mail, clientsFile, column=0) != []:
+        addresses = utils.get_all_objects(addressFile)
+        c = 1
+        client_addresses = []
+        for adr in addresses:
+            if adr[0] == client_mail:
+                print(f"{c} - {adr[1]} {adr[2]}, {adr[3]}, {adr[4]}, {adr[5]}")
+                client_addresses.append(adr)
+                c+=1
+        if client_addresses != []:
+            delete = int(input("type the number of the address you want to delete: "))
+            while delete not in range(1,len(client_addresses)):
+                delete = int(input("please insert a valid range: "))
+
+            addresses.pop(addresses.index(client_addresses[delete-1]))
+            utils.update_all_objects(addressFile, addresses)
+        else:
+            print("user has no addresses registered.")
+    else:
+        print("user not found.")

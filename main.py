@@ -1,23 +1,23 @@
-import utils, client
+import utils, client, address
 
 utils.create_main_files() # starts save files if they do not exist
 
 # need to create interface
 
-print("creating clients:")
-client.create_client("joao", "321")
-client.create_client("Lucca", "123")
+# address.create_address("street", "number", "city", "state", "country", "client_email")
+address.create_address("tavares de lyra", "1053", "sjp", "pr", "br", "123")
 
-client.create_client("Josias", "123") # error, cannot create with same email
+client.create_client("joao", "123")
 
-print("")
-print("editing client:")
-client.edit_client("123") 
-
+address.create_address("tavares de lyra", "1053", "sjp", "pr", "br", "123")
+address.create_address("rua blabla", "123123", "sjp", "bh", "br", "123")
+address.create_address("rua xxxxx", "9999", "sjp", "bh", "br", "123")
 
 print("")
-print("searching client:")
-client.search_client("123")
+print("searching a client address")
+address.get_client_addresses("123")
 
+print("")
+print("deleting a client address")
 
-#client.delete_client("321")
+address.delete_client_address("123")
