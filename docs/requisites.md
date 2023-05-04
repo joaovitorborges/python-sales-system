@@ -24,7 +24,6 @@ Linked with client registry
 - Edit
 - Delete
 - Search
-- Sales
 
 
 ### Sales
@@ -37,7 +36,7 @@ linked with product, client and stock
 
 ### Stock
 
-Linked with product 
+Linked with product
 \
  Prerequisite for sales
 
