@@ -4,71 +4,65 @@ import csv
 clientsFile = "clients.csv"
 
 def create_client(name:str, email:str):
-    if utils.get_object(email, clientsFile) == []:        # if client doesnt exist, create client
-        utils.write_to_csv([name, email], clientsFile)
+    if utils.get_single_object(email, clientsFile, column=0) == []:        # if client doesn't exist, create client
+        utils.write_to_csv([email, name], clientsFile)
         print("client created")
     else:
         print("client with this email already exists")
 
 
 def search_client(email:str):
-    client = utils.get_object(email, clientsFile)
+    client = utils.get_single_object(email, clientsFile, column=0)
     if client != []:
         print("client found:")
-        print(f" - name: {client[0]}")
-        print(f" - email: {client[1]}")
+        print(f" - name: {client[1]}")
+        print(f" - email: {client[0]}")
+
     else:
         print("client with this email not found.")
 
 
 def edit_client(email:str):
-    with open(clientsFile, mode='r') as file:
-        reader = csv.reader(file)
-        clients = list(reader)                  # get list of clients
-        for client in clients:
-            if client[1] == email:
-                print("Current client information:")
-                print(f" - name: {client[0]}")
-                print(f" - email: {client[1]}")
+    clients = utils.get_all_objects(clientsFile)
+    for client in clients:
+        if client[0] == email:
+            print("Current client information:")
+            print(f" - name: {client[1]}")
+            print(f" - email: {client[0]}")
 
-                new_name = input("Enter name (blank to keep current value): ").strip()
-                new_email = input("Enter email (blank to keep current value): ").strip()
+            new_name = input("Enter name (blank to keep current value): ").strip()
+            new_email = input("Enter email (blank to keep current value): ").strip()
 
-                if new_email != email:       # if user changed email, must validate if no other account has that email
-                    if utils.get_object(new_email, clientsFile) != []:
-                        print("Can not update to new email, as account with that email already exists.")
-                        return
+            if new_email != email:       # if user changed email, must validate if no other account has that email
+                if utils.get_single_object(new_email, clientsFile, column=0) != []:
+                    print("Can not update to new email, as account with that email already exists.")
+                    return
 
-                if new_name == "":
-                    new_name = client[0]
-                if new_email == "":
-                    new_email = client[1]
+            if new_name == "":
+                new_name = client[1]
+            if new_email == "":
+                new_email = client[0]
 
-                clients[clients.index(client)] = [new_name, new_email] # update line with new info
-                break
-        else:
-            print(f"client {email} not found.")
-            return      # stop function
+            clients[clients.index(client)] = [new_email, new_name] # update line with new info
+            break
+    else:
+        print(f"client {email} not found.")
+        return      # stop function
 
-    with open(clientsFile, mode='w', newline='') as file:     # write updated client list
-        writer = csv.writer(file)
-        writer.writerows(clients)
+    utils.update_all_objects(clientsFile, clients)
     print("Client information has been updated.")
 
 
 def delete_client(email:str):
-    with open(clientsFile, mode='r') as file:
-        reader = csv.reader(file)
-        clients = list(reader)                  # get list of clients
-        for client in clients:
-            if client[1] == email:
-                clients.remove(client)          # remove client from list
-                break
-        else:
-            print(f"client {email} not found.")
-            return      # stop function
 
-    with open(clientsFile, mode='w', newline='') as file:     # write updated client list
-        writer = csv.writer(file)
-        writer.writerows(clients)
+    clients = utils.get_all_objects(clientsFile)
+    for client in clients:
+        if client[0] == email:
+            clients.remove(client)          # remove client from list
+            break
+    else:
+        print(f"client {email} not found.")
+        return      # stop function
+
+    utils.update_all_objects(clientsFile, clients)
     print(f"{email} has been deleted.")

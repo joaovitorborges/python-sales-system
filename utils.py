@@ -9,7 +9,8 @@ def create_csv_file(filename:str, header:list):
 
 
 def create_main_files():
-    create_csv_file("clients.csv", ["name", "email"])
+    create_csv_file("clients.csv", ["email", "name"])
+    create_csv_file("address.csv", ["client_mail", "street", "number", "city", "state", "country"])
 
 
 def write_to_csv(info:list, filename:str):           # used to insert a new object to a file, such as a client
@@ -18,11 +19,34 @@ def write_to_csv(info:list, filename:str):           # used to insert a new obje
         writer.writerow(info)
 
 
-def get_object(ID:str, filename:str):            # used to return an object from a file, such as a client
+def get_single_object(parameter:str, filename:str, column:int):            # used to return an object from a file, such as a client
     with open(filename, mode='r') as file:
         reader = csv.reader(file)
         rows = list(reader)
         for row in rows:
-            if row[1] == ID:
+            if row[column] == parameter:
                 return row
     return []
+
+
+def get_multiple_objects(parameter:str, filename:str, column:int):
+    with open(filename, mode='r') as file:
+        reader = csv.reader(file)
+        rows = list(reader)
+        results = []
+        for row in rows:
+            if row[column] == parameter:
+                results.append(row)
+    return results
+
+
+def get_all_objects(filename:str):
+    with open(filename, mode='r') as file:
+        reader = csv.reader(file)
+        return list(reader)
+    
+
+def update_all_objects(filename:str, objects:list):
+    with open(filename, mode='w', newline='') as file:
+        writer = csv.writer(file)
+        writer.writerows(objects)
