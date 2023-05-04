@@ -1,5 +1,6 @@
 #========================================= testing client module
 import client
+
 print("creating clients:")
 client.create_client("joao", "321")
 client.create_client("Lucca", "123")
@@ -20,13 +21,8 @@ client.search_client("123")
 
 #====================================== testing address module
 
-import utils, client, address
+import client, address
 
-utils.create_main_files() # starts save files if they do not exist
-
-# need to create interface
-
-# address.create_address("street", "number", "city", "state", "country", "client_email")
 address.create_address("tavares de lyra", "1053", "sjp", "pr", "br", "123")
 
 client.create_client("joao", "123")
@@ -43,3 +39,8 @@ print("")
 print("deleting a client address")
 
 address.delete_client_address("123")
+
+print("")
+print("editing client address")
+
+address.edit_client_address("123")

@@ -21,3 +21,8 @@ print("")
 print("deleting a client address")
 
 address.delete_client_address("123")
+
+print("")
+print("editing client address")
+
+address.edit_client_address("123")
