@@ -44,3 +44,42 @@ print("")
 print("editing client address")
 
 address.edit_client_address("123")
+
+#===================================== testing product module
+
+import product
+
+print("creating products:")
+product.create_products("12", "banana")
+product.create_products("13", "maca")
+
+product.create_products("12", "ventilador") # error, cannot create with same email
+
+print("")
+print("editing product:")
+product.edit_product("12") 
+
+
+print("")
+print("searching product:")
+product.search_product("12")
+
+# product.delete_product("12")
+
+#===================================== testing product module
+
+import stock
+
+print("creating stock item:")
+stock.insert_product_stock("12", 40)
+stock.insert_product_stock("13", "20")
+
+print("increment stock item:")
+stock.increment_stock("12", 10) 
+
+print("")
+print("searching product quantity:")
+stock.get_product_quantity("12") 
+stock.get_product_quantity("13") 
+
+
