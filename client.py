@@ -73,14 +73,15 @@ def edit_client_test_inteface(email:str, new_email:str,new_name:str):
                 new_email = client[0]
 
             clients[clients.index(client)] = [new_email, new_name] # update line with new info
-            return "new email: " + new_email + " | new name: " + new_name
             break
+        
     else:
         print(f"client {email} not found.")
-        return      # stop function
-
+        return  f"client {email} not found."     # stop function
+    
     utils.update_all_objects(clientsFile, clients)
     print("Client information has been updated.")
+    return "new email: " + new_email + " | new name: " + new_name
 
 
 def delete_client(email:str):
