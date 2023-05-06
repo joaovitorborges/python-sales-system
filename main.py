@@ -1,4 +1,4 @@
-import utils, client, address, stock , product
+import utils, client, address, stock , product, product_windows, client_windows
 
 utils.create_main_files() # starts save files if they do not exist
 
@@ -41,22 +41,33 @@ import stock
 # stock.get_product_quantity("12") 
 # stock.get_product_quantity("13") 
 
-import product
+# import product
 
-print("creating products:")
-product.create_products("12", "banana", 2.50)
-product.create_products("13", "maca", 3.50)
+# print("creating products:")
+# product.create_products("12", "banana", 2.50)
+# product.create_products("13", "maca", 3.50)
 
-product.create_products("12", "ventilador", 150.99) # error, cannot create with same email
+# product.create_products("12", "ventilador", 150.99) # error, cannot create with same email
 
-print("")
-print("editing product:")
-product.edit_product("12") 
+# print("")
+# print("editing product:")
+# product.edit_product("12") 
 
 
-print("")
-print("searching product:")
-product.search_product("12")
+# print("")
+# print("searching product:")
+# product.search_product("12")
 
 # product.delete_product("12")
 
+
+#interface
+
+# #product
+# product_windows.product_create_window()
+
+#client
+client_windows.client_create_window() #create window to create client
+client_windows.client_search_window() #create window to search client
+client_windows.client_edit_window() #create window to edit client 
+client_windows.client_delete_window() #create window to delete client
