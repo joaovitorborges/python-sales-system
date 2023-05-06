@@ -36,8 +36,27 @@ import stock
 
 # stock.increment_stock("12", 10) #increment stock item
 
+# print("")
+# print("searching product quantity:")
+# stock.get_product_quantity("12") 
+# stock.get_product_quantity("13") 
+
+import product
+
+print("creating products:")
+product.create_products("12", "banana", 2.50)
+product.create_products("13", "maca", 3.50)
+
+product.create_products("12", "ventilador", 150.99) # error, cannot create with same email
+
 print("")
-print("searching product quantity:")
-stock.get_product_quantity("12") 
-stock.get_product_quantity("13") 
+print("editing product:")
+product.edit_product("12") 
+
+
+print("")
+print("searching product:")
+product.search_product("12")
+
+# product.delete_product("12")
 

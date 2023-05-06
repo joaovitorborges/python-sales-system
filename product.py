@@ -3,18 +3,19 @@ import csv
 
 productsFile = "products.csv"
 
-def create_products(code:str, name:str):
+def create_products(code:str, name:str, price:float):
     if utils.get_single_object(code, productsFile, column=0) == []:        # if product doesn't exist, create product
-        utils.write_to_csv([code, name], productsFile)
+        utils.write_to_csv([code, name, price], productsFile)
         print("Product created")
     else:
-        print(f'This product with the "{code}" already exists')
+        print(f'This product with the code "{code}" already exists')
 
 
 def search_product(code:str):
     product = utils.get_single_object(code, productsFile, column=0)
     if product != []:
         print("product found:")
+        print(f" - Price: {product[2]}")
         print(f" - Name: {product[1]}")
         print(f" - Code: {product[0]}")
 
@@ -27,9 +28,11 @@ def edit_product(code:str):
     for product in products:
         if product[0] == code:
             print("Current product information:")
+            print(f" - Price: {product[2]}")
             print(f" - Name: {product[1]}")
             print(f" - Code: {product[0]}")
 
+            new_price = (input("Enter the new price (blank to keep current value): ")).strip()
             new_code = (input("Enter code (blank to keep current value): ")).strip()
             new_name = (input("Enter item name (blank to keep current value): ")).strip()
 
@@ -42,9 +45,11 @@ def edit_product(code:str):
                 new_code = product[0]
             if new_name == "":
                 new_name = product[1]
+            if new_price == "":
+                new_price = product[2]
 
 
-            products[products.index(product)] = [new_code, new_name] # update line with new info
+            products[products.index(product)] = [new_code, new_name,new_price] # update line with new info
             break
     else:
         print(f"product {code} not found.")

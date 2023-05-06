@@ -50,10 +50,10 @@ address.edit_client_address("123")
 import product
 
 print("creating products:")
-product.create_products("12", "banana")
-product.create_products("13", "maca")
+product.create_products("12", "banana", 2.50)
+product.create_products("13", "maca", 3.50)
 
-product.create_products("12", "ventilador") # error, cannot create with same email
+product.create_products("12", "ventilador", 150.99) # error, cannot create with same email
 
 print("")
 print("editing product:")
