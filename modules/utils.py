@@ -2,8 +2,10 @@ import os
 import csv
 
 def create_csv_file(filename:str, header:list):
+    if not os.path.exists('data/'):
+        os.makedirs('data/')
     if not os.path.exists(filename):
-        with open(filename, 'w', newline='') as file:
+        with open('data/'+filename, 'w', newline='') as file:
             writer = csv.writer(file)
             writer.writerow(header)       # add header row
 
@@ -18,13 +20,13 @@ def create_main_files():
 
 
 def write_to_csv(info:list, filename:str):           # used to insert a new object to a file, such as a client
-    with open(filename, mode='a', newline='') as file:
+    with open('data/'+filename, mode='a', newline='') as file:
         writer = csv.writer(file)
         writer.writerow(info)
 
 
 def get_single_object(parameter:str, filename:str, column:int):            # used to return an object from a file, such as a client
-    with open(filename, mode='r') as file:
+    with open('data/'+filename, mode='r') as file:
         reader = csv.reader(file)
         rows = list(reader)
         for row in rows:
@@ -34,7 +36,7 @@ def get_single_object(parameter:str, filename:str, column:int):            # use
 
 
 def get_multiple_objects(parameter:str, filename:str, column:int):
-    with open(filename, mode='r') as file:
+    with open('data/'+filename, mode='r') as file:
         reader = csv.reader(file)
         rows = list(reader)
         results = []
@@ -45,12 +47,12 @@ def get_multiple_objects(parameter:str, filename:str, column:int):
 
 
 def get_all_objects(filename:str):
-    with open(filename, mode='r') as file:
+    with open('data/'+filename, mode='r') as file:
         reader = csv.reader(file)
         return list(reader)
     
 
 def update_all_objects(filename:str, objects:list):
-    with open(filename, mode='w', newline='') as file:
+    with open('data/'+filename, mode='w', newline='') as file:
         writer = csv.writer(file)
         writer.writerows(objects)
