@@ -9,7 +9,7 @@ stockFile = "stock.csv"
 salesFile = "sales.csv"
 
 
-def create_sale(product_id:str, client_email:str, quantity:int):
+def create_sale(product_id:str, client_email:str, quantity:int, address:list):
     if utils.get_single_object(client_email, clientsFile, column=0) == []:        # if client doesn't exist
         print("client does not exist")
         return   
@@ -24,7 +24,7 @@ def create_sale(product_id:str, client_email:str, quantity:int):
         return
     else:
         total_price = quantity*float(product[2])
-        utils.write_to_csv([datetime.now(), client_email, product_id, quantity, total_price], salesFile)
+        utils.write_to_csv([datetime.now(), client_email, product_id, quantity, total_price, address], salesFile)
         stock.increment_stock(product_id, -quantity)
 
 

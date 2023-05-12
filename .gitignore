@@ -1,5 +1,6 @@
 # files used for program storage
 *.csv
+data
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

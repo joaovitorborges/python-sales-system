@@ -15,7 +15,7 @@ def create_main_files():
     create_csv_file("address.csv", ["client_mail", "street", "number", "city", "state", "country"])
     create_csv_file("products.csv", ["code","name","price"])
     create_csv_file("stock.csv", ["code_product","quantity"])
-    create_csv_file("sales.csv", ["date", "client_email", "product_id", "quantity", "total_price"])
+    create_csv_file("sales.csv", ["date", "client_email", "product_id", "quantity", "total_price", "address"])
     
 
 
