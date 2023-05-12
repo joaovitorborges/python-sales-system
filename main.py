@@ -1,4 +1,4 @@
-import utils, client, address, stock , product, product_windows, client_windows
+import utils, client, address, stock , product, sales, product_windows, client_windows
 
 utils.create_main_files() # starts save files if they do not exist
 
@@ -26,8 +26,6 @@ utils.create_main_files() # starts save files if they do not exist
 # print("editing client address")
 
 # address.edit_client_address("123")
-
-import stock
 
 # print("creating stock item:")
 # stock.insert_product_stock("12", 40)
@@ -67,7 +65,11 @@ import stock
 # product_windows.product_create_window()
 
 #client
-client_windows.client_create_window() #create window to create client
-client_windows.client_search_window() #create window to search client
-client_windows.client_edit_window() #create window to edit client 
-client_windows.client_delete_window() #create window to delete client
+#client_windows.client_create_window() #create window to create client
+#client_windows.client_search_window() #create window to search client
+#client_windows.client_edit_window() #create window to edit client 
+#client_windows.client_delete_window() #create window to delete client
+
+
+
+sales.create_sale(product_id="12345", client_email="123", quantity=10)

@@ -13,6 +13,8 @@ def create_main_files():
     create_csv_file("address.csv", ["client_mail", "street", "number", "city", "state", "country"])
     create_csv_file("products.csv", ["code","name","price"])
     create_csv_file("stock.csv", ["code_product","quantity"])
+    create_csv_file("sales.csv", ["date", "client_email", "product_id", "quantity", "total_price"])
+    
 
 
 def write_to_csv(info:list, filename:str):           # used to insert a new object to a file, such as a client
