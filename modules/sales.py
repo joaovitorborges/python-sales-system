@@ -1,6 +1,7 @@
-import utils
+import modules.utils as utils
+import modules.stock as stock
 from datetime import datetime
-import stock
+
 
 clientsFile = "clients.csv"
 productsFile = "products.csv"

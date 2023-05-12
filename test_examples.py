@@ -1,5 +1,5 @@
 #========================================= testing client module
-import client
+import modules.client as client
 
 print("creating clients:")
 client.create_client("joao", "321")
@@ -21,7 +21,7 @@ client.search_client("123")
 
 #====================================== testing address module
 
-import client, address
+import modules.client as client, modules.address as address
 
 address.create_address("tavares de lyra", "1053", "sjp", "pr", "br", "123")
 
@@ -47,7 +47,7 @@ address.edit_client_address("123")
 
 #===================================== testing product module
 
-import product
+import modules.product as product
 
 print("creating products:")
 product.create_products("12", "banana", 2.50)
@@ -68,7 +68,7 @@ product.search_product("12")
 
 #===================================== testing product module
 
-import stock
+import modules.stock as stock
 
 print("creating stock item:")
 stock.insert_product_stock("12", 40)

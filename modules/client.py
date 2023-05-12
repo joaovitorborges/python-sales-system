@@ -1,4 +1,4 @@
-import utils
+import modules.utils as utils
 import csv
 
 clientsFile = "clients.csv"

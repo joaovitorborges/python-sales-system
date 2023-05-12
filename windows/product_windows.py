@@ -1,5 +1,5 @@
 from PySimpleGUI import PySimpleGUI as sg
-import  product
+import  modules.product as product
 
 def product_create_window():
     #layout
@@ -28,7 +28,7 @@ def product_create_window():
             break
 
 from PySimpleGUI import PySimpleGUI as sg
-import  client
+import  modules.client as client
 
 def client_create_window():
     #layout
