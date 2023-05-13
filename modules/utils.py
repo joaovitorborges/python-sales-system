@@ -4,7 +4,7 @@ import csv
 def create_csv_file(filename:str, header:list):
     if not os.path.exists('data/'):
         os.makedirs('data/')
-    if not os.path.exists(filename):
+    if not os.path.exists('data/'+filename):
         with open('data/'+filename, 'w', newline='') as file:
             writer = csv.writer(file)
             writer.writerow(header)       # add header row
