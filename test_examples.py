@@ -38,7 +38,7 @@ address.get_client_addresses("123")
 print("")
 print("deleting a client address")
 
-address.delete_client_address("123")
+address.delete_client_address_cmd("123")
 
 print("")
 print("editing client address")

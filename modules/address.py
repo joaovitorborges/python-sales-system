@@ -7,9 +7,9 @@ addressFile = "address.csv"
 def create_address(street:str, number:int, city:str, state:str, country:str, client_mail:str):
     if utils.get_single_object(client_mail, clientsFile, column=0) != []:         # can create only if client exists
         utils.write_to_csv([client_mail, street, number, city, state, country], addressFile)
-        print("address created")
+        return "address created"
     else:
-        print("Client related to address not found")
+        return "Client related to address not found"
 
 def get_client_addresses(client_mail:str):
     if utils.get_single_object(client_mail, clientsFile, column=0) != []:
@@ -26,9 +26,9 @@ def get_client_addresses(client_mail:str):
             return addresses
     else:
         print("Client does not exist")
-        return []
+        return "client does not exist"
 
-def delete_client_address(client_mail:str):
+def delete_client_address_cmd(client_mail:str):
     if utils.get_single_object(client_mail, clientsFile, column=0) != []:
         addresses = utils.get_all_objects(addressFile)
         c = 1
@@ -51,6 +51,27 @@ def delete_client_address(client_mail:str):
             print("user has no addresses registered.")
     else:
         print("user not found.")
+
+def delete_client_address(client_mail:str, index:int):
+    if utils.get_single_object(client_mail, clientsFile, column=0) != []:
+        addresses = utils.get_all_objects(addressFile)
+        c = 1
+        client_addresses = []
+        for adr in addresses:
+            if adr[0] == client_mail:
+                client_addresses.append(adr)
+                c+=1
+        if client_addresses != []:
+            delete = index #int(input("type the number of the address you want to delete(0 to cancel): "))
+            if delete not in range(0,len(client_addresses)):
+                return "error on index"
+            addresses.pop(addresses.index(client_addresses[delete]))
+            utils.update_all_objects(addressFile, addresses)
+            return "address deleted."
+        else:
+            return "user has no addresses registered."
+    else:
+        return "user not found."
 
 
 def edit_client_address(client_mail:str):
