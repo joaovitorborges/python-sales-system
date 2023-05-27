@@ -34,12 +34,14 @@ def search_sale(param:str, column):
     if sales != []:
         print("sales:")
         print(sales)
+        return sales
 
     else:
         print("no sale found for this parameter")
+        return "no sale found for this {param}"
 
 def search_sale_client(email:str):
-    search_sale(email, 1)
+    return search_sale(email, 1)
 
-def search_sale_product(email:str):
-    search_sale(email, 2)
+def search_sale_product(product:str):
+    return search_sale(product, 2)
