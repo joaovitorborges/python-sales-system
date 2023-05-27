@@ -1,5 +1,8 @@
 from PySimpleGUI import PySimpleGUI as sg
-import  modules.sales as sales, windows.main_windows as all_pages_windows ,modules.sales as sales, modules.product as product
+import  modules.sales as sales, windows.main_windows as all_pages_windows
+import modules.product as product
+import modules.client as client
+import  modules.address as address
 
 def main_sales():
     #layout
@@ -8,8 +11,8 @@ def main_sales():
     layout_client = [
         [sg.Text("Create Sales:")],
         [sg.Button('Create Sales')],
-        [sg.Text("Get product quantity on Stock:")],
-        [sg.Button('Get product quantity on Stock')],
+        [sg.Text("search sale:")],
+        [sg.Button('search sale')],
         [sg.Text("Increment Stock:")],
         [sg.Button('Increment Stock')],
         [sg.Text("If want go back:")],
@@ -24,7 +27,7 @@ def main_sales():
         event, values = Windows.read()
         if event == sg.WIN_CLOSED:
             break
-        elif event == 'Insert Stock':
+        elif event == 'Create Sales':
             Windows.Close()
             create_sales_window()
         elif event == 'Increment Stock':
@@ -38,18 +41,26 @@ def main_sales():
 def create_sales_window():
         #layout
     sg.theme('TanBlue')
+    addresses = []  
+    lst = sg.Listbox(addresses, size=(30, 4), expand_y=True, enable_events=True, key='list')
 
     layout_stock = [
         [sg.Text("Product Code")],
         [sg.InputText(key = "product_code")],
         [sg.Button('See if Product exists')],
-        [sg.InputText(key = "product_exist")],
+        [sg.Text(key = "product_exist")],
         [sg.Text("Client Email")],
         [sg.InputText(key = "client_email")],
+        [sg.Button('See if Client exists')],
+        [sg.Text(key = "client_exist")],
         [sg.Text("quantity")],
         [sg.InputText(key = "quantity")], 
         [sg.Text("adress")],
-        [sg.InputText(key = "adress")], 
+        [sg.Button('Search address')],
+        [lst],
+        [sg.Text("",key="address_response")],
+        [sg.Button('create sales')],
+        [sg.Text("",key="create_sales")],
         [sg.Button('back')]
     ]
     #window
@@ -61,11 +72,36 @@ def create_sales_window():
         event, values = Windows.read()
         if event == sg.WIN_CLOSED:
             break
+        elif event == "See if Client exists":
+            client_exist = client.search_client(values['client_email'])
+            Windows["client_exist"].update(client_exist)
         elif event == 'See if Product exists':
             stock_product = product.search_product(values['product_code'])
-            Windows["product_exists"].update(stock_product)
+            Windows["product_exist"].update(stock_product)
+        elif event == 'Search address':
+            addresses = address.get_client_addresses(values['client_email'])
+            if addresses == []:
+                Windows['list'].update(addresses)
+                Windows["address_response"].update("No addresses found for this email")
+            elif addresses == "client does not exist":
+                addresses = []
+                Windows['list'].update(addresses)
+                Windows["address_response"].update("User does not exist")
+            else:
+                Windows['list'].update(addresses)
+                Windows["address_response"].update("Addresses found")
+        elif event == 'create sales':
+            if Windows['list'].get() != []:
+                addres = addresses.index(Windows['list'].get()[0])
+                print(addres)
+                response = sales.create_sale(values['product_code'],values['client_email'],int(values['quantity']),addres)
+                Windows["create_sales"].update(response)
+            else:
+                Windows["create_sales"].update("select an address to make a sales")
         elif event == "back":
             Windows.Close()
             main_sales()
             
+
+
             
