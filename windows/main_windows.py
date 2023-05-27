@@ -3,6 +3,7 @@ import windows.product_windows as product_windows
 import windows.client_windows as client_windows
 import windows.stock_windows as stock_windows
 import windows.address_windows as address_windows
+import windows.sales_windows as sales_windows
 
 def main_window():
     #layout
@@ -14,6 +15,7 @@ def main_window():
        [sg.Button("Address Page")],
        [sg.Button("Product Page")],
        [sg.Button("Stock Page")],
+       [sg.Button("Sales Page")],
        [sg.Button("Exit")]
     ]
     #window
@@ -37,5 +39,8 @@ def main_window():
         elif event == 'Stock Page':
             Windows.Close()
             stock_windows.main_stock()
+        elif event == 'Sales Page':
+            Windows.Close()
+            sales_windows.main_sales()
         elif event == 'Exit':
             Windows.close()
