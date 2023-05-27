@@ -23,6 +23,7 @@ def search_client(email:str):
 
     else:
         print("client with this email not found.")
+        return "client with this email not found, try the create client button"
 
 
 # def edit_client(email:str):
@@ -67,7 +68,7 @@ def edit_client_test_inteface(email:str, new_email:str,new_name:str):
             if new_email != email:       # if user changed email, must validate if no other account has that email
                 if utils.get_single_object(new_email, clientsFile, column=0) != []:
                     print("Can not update to new email, as account with that email already exists.")
-                    return
+                    return "Can not update to new email, as account with that email already exists."
 
             if new_name == "":
                 new_name = client[1]
@@ -79,7 +80,7 @@ def edit_client_test_inteface(email:str, new_email:str,new_name:str):
         
     else:
         print(f"client {email} not found.")
-        return  f"client {email} not found."     # stop function
+        return  f"client {email} not found, try create the client."     # stop function
     
     utils.update_all_objects(clientsFile, clients)
     print("Client information has been updated.")
@@ -94,7 +95,7 @@ def delete_client(email:str):
             break
     else:
         print(f"client {email} not found.")
-        return      # stop function
+        return  f"client {email} not found."   # stop function
 
     utils.update_all_objects(clientsFile, clients)
     print(f"{email} has been deleted.")

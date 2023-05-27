@@ -53,6 +53,7 @@ def client_create_window():
         [sg.Text("Please give the client name")],
         [sg.InputText(key = "client_name")],
         [sg.Button('Create client')],
+        [sg.Text("",key="client_created")],
         [sg.Button('Back')],
     ]
     #window
@@ -65,7 +66,8 @@ def client_create_window():
         if event == sg.WIN_CLOSED:
             break
         elif event == 'Create client':
-            client.create_client(values['client_name'],values['client_email'])
+            client_created = client.create_client(values['client_name'],values['client_email'])
+            Windows["client_created"].update(client_created)
         elif event == 'Back':
             Windows.close()
             main_client()
