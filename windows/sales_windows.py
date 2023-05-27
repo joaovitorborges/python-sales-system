@@ -47,17 +47,17 @@ def create_sales_window():
     lst = sg.Listbox(addresses, size=(60, 4), expand_y=True, enable_events=True, key='list')
 
     layout_sales = [
-        [sg.Text("Product Code")],
+        [sg.Text("Product Code:")],
         [sg.InputText(key = "product_code")],
         [sg.Button('See if Product exists')],
         [sg.Text(key = "product_exist")],
-        [sg.Text("Client Email")],
+        [sg.Text("Client Email:")],
         [sg.InputText(key = "client_email")],
         [sg.Button('See if Client exists')],
         [sg.Text(key = "client_exist")],
-        [sg.Text("quantity")],
+        [sg.Text("Quantity:")],
         [sg.InputText(key = "quantity")], 
-        [sg.Text("adress")],
+        [sg.Text("Adress:")],
         [sg.Button('Search address')],
         [lst],
         [sg.Text("",key="address_response")],
@@ -110,7 +110,7 @@ def search_sales_client_windows():
     sg.theme('TanBlue')
 
     layout_sales = [
-        [sg.Text("Client email address")],
+        [sg.Text("Client email address:")],
         [sg.InputText(key = "client_email")],
         [sg.Button('See if Client exists')],
         [sg.Text(key = "client_exists")],
@@ -142,7 +142,7 @@ def search_sales_product_windows():
     sg.theme('TanBlue')
 
     layout_sales = [
-        [sg.Text("Product Code")],
+        [sg.Text("Product Code:")],
         [sg.InputText(key = "product_code")],
         [sg.Button('See if Product exists')],
         [sg.Text(key = "product_exists")],
