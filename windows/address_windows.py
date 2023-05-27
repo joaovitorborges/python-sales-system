@@ -1,5 +1,6 @@
 from PySimpleGUI import PySimpleGUI as sg
 import  modules.address as address
+import  modules.client as client
 import windows.main_windows as all_pages_windows
 
 def main_address():
@@ -48,6 +49,8 @@ def address_create_window():
     layout_client = [
         [sg.Text("Client mail")],
         [sg.InputText(key = "client_mail")],
+        [sg.Button('See if the client exists')],
+        [sg.Text("",key="client_exists")],
         [sg.Text("Street")],
         [sg.InputText(key = "street")],
         [sg.Text("number")],
@@ -82,6 +85,9 @@ def address_create_window():
                 Windows["city"].update("")
                 Windows["state"].update("")
                 Windows["country"].update("")
+        elif event == 'See if the client exists':
+            client_exists = client.search_client(values['client_mail'])
+            Windows["client_exists"].update(client_exists)
         elif event == 'Back':
             Windows.close()
             main_address()
@@ -96,6 +102,8 @@ def address_delete_window():
     layout_client = [
         [sg.Text("Client mail")],
         [sg.InputText(key = "client_mail")],
+        [sg.Button('See if the client exists')],
+        [sg.Text("",key="client_exists")],
         [sg.Button('Search')],
         [lst],
         [sg.Button('Delete')],
@@ -111,6 +119,9 @@ def address_delete_window():
         event, values = Windows.read()
         if event == sg.WIN_CLOSED:
             break
+        elif event == 'See if the client exists':
+            client_exists = client.search_client(values['client_mail'])
+            Windows["client_exists"].update(client_exists)
         elif event == 'Search':
             addresses = address.get_client_addresses(values['client_mail'])
             if addresses == []:
