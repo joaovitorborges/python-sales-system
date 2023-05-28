@@ -26,37 +26,6 @@ def search_client(email:str):
         return "client with this email not found, try the create client button"
 
 
-# def edit_client(email:str):
-#     clients = utils.get_all_objects(clientsFile)
-#     for client in clients:
-#         if client[0] == email:
-#             print("Current client information:")
-#             print(f" - name: {client[1]}")
-#             print(f" - email: {client[0]}")
-
-#             new_name = input("Enter name (blank to keep current value): ").strip()
-#             new_email = input("Enter email (blank to keep current value): ").strip()
-
-#             if new_email != email:       # if user changed email, must validate if no other account has that email
-#                 if utils.get_single_object(new_email, clientsFile, column=0) != []:
-#                     print("Can not update to new email, as account with that email already exists.")
-#                     return
-
-#             if new_name == "":
-#                 new_name = client[1]
-#             if new_email == "":
-#                 new_email = client[0]
-
-#             clients[clients.index(client)] = [new_email, new_name] # update line with new info
-#             break
-#     else:
-#         print(f"client {email} not found.")
-#         return      # stop function
-
-#     utils.update_all_objects(clientsFile, clients)
-#     print("Client information has been updated.")
-
-#test for interface 
 def edit_client_test_inteface(email:str, new_email:str,new_name:str):
     clients = utils.get_all_objects(clientsFile)
     for client in clients:

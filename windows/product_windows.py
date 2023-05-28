@@ -19,7 +19,7 @@ def main_product():
         [sg.Button('Back')]
     ]
     #window
-    Windows = sg.Window('Product Screen',layout_product,size=(300,300))
+    Windows = sg.Window('Product Screen',layout_product,size=(300,400))
 
     #read events
 

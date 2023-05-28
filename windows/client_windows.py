@@ -19,7 +19,7 @@ def main_client():
         [sg.Button('Back')]
     ]
     #window
-    Windows = sg.Window('Client Screen',layout_client,size=(300,300))
+    Windows = sg.Window('Client Screen',layout_client,size=(300,400))
 
     #read events
 

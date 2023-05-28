@@ -18,7 +18,7 @@ def main_address():
         [sg.Button('Back')]
     ]
     #window
-    Windows = sg.Window('Address Screen',layout_address,size=(300,600))
+    Windows = sg.Window('Address Screen',layout_address,size=(300,250))
 
     #read events
 
@@ -31,15 +31,14 @@ def main_address():
             address_create_window()
         elif event == 'Edit Client Address':
             Windows.Close()
-            address_create_window
-            #address_edit_window()
+            #address_create_window
+            address_edit_window()
         elif event == 'Delete Client Address':
             Windows.Close()
             address_delete_window()
         elif event == 'Back':
             Windows.close()
             all_pages_windows.main_window()
-
 
 
 def address_create_window():
@@ -49,8 +48,6 @@ def address_create_window():
     layout_client = [
         [sg.Text("Client mail")],
         [sg.InputText(key = "client_mail")],
-        [sg.Button('See if the client exists')],
-        [sg.Text("",key="client_exists")],
         [sg.Text("Street")],
         [sg.InputText(key = "street")],
         [sg.Text("number")],
@@ -85,9 +82,84 @@ def address_create_window():
                 Windows["city"].update("")
                 Windows["state"].update("")
                 Windows["country"].update("")
-        elif event == 'See if the client exists':
-            client_exists = client.search_client(values['client_mail'])
-            Windows["client_exists"].update(client_exists)
+        elif event == 'Back':
+            Windows.close()
+            main_address()
+
+def address_edit_window():
+    #layout
+    sg.theme('TanBlue')
+    addresses = []
+    lst = sg.Listbox(addresses, size=(30, 4), expand_y=True, enable_events=True, key='list')
+
+    layout_client = [
+        [sg.Text("Client mail")],
+        [sg.InputText(key = "client_mail")],
+        [sg.Button('Search')],
+        [sg.Text("Click select to copy address values and edit them")],
+        [lst],
+        [sg.Button('Select')],
+        [sg.Text("Street")],
+        [sg.InputText(key = "street")],
+        [sg.Text("number")],
+        [sg.InputText(key = "number")],
+        [sg.Text("city")],
+        [sg.InputText(key = "city")],
+        [sg.Text("state")],
+        [sg.InputText(key = "state")],
+        [sg.Text("country")],
+        [sg.InputText(key = "country")],
+        [sg.Button('Edit')],
+        [sg.Text("",key="address_response")],
+        [sg.Button('Back')],
+    ]
+    #window
+    Windows = sg.Window('Client Screen',layout_client)
+
+    #read events
+
+    while True:
+        event, values = Windows.read()
+        if event == sg.WIN_CLOSED:
+            break
+        elif event == 'Search':
+            addresses = address.get_client_addresses(values['client_mail'])
+            if addresses == []:
+                Windows['list'].update(addresses)
+                Windows["address_response"].update("No addresses found for this email")
+            elif addresses == "client does not exist":
+                addresses = []
+                Windows['list'].update(addresses)
+                Windows["address_response"].update("User does not exist")
+            else:
+                Windows['list'].update(addresses)
+                Windows["address_response"].update("Addresses found. Select an address to delete")
+        
+        elif event == 'Select':
+            selected = Windows['list'].get()[0]
+            print(selected)
+            if selected != []:
+                Windows["street"].update(selected[1])
+                Windows["number"].update(selected[2])
+                Windows["city"].update(selected[3])
+                Windows["state"].update(selected[4])
+                Windows["country"].update(selected[5])
+        elif event == 'Edit':
+            if Windows['list'].get() != []:
+                edit = addresses.index(Windows['list'].get()[0])
+                response = address.edit_client_address(values['client_mail'],edit,  values['street'],values['number'],values['city'],values['state'],values['country'] )
+                Windows["address_response"].update(response)
+                addresses = address.get_client_addresses(values['client_mail'])
+                Windows['list'].update(addresses)
+                Windows["street"].update("")
+                Windows["number"].update("")
+                Windows["city"].update("")
+                Windows["state"].update("")
+                Windows["country"].update("")
+            else:
+                Windows["address_response"].update("select an address to delete")
+            
+
         elif event == 'Back':
             Windows.close()
             main_address()
@@ -102,8 +174,6 @@ def address_delete_window():
     layout_client = [
         [sg.Text("Client mail")],
         [sg.InputText(key = "client_mail")],
-        [sg.Button('See if the client exists')],
-        [sg.Text("",key="client_exists")],
         [sg.Button('Search')],
         [lst],
         [sg.Button('Delete')],
@@ -119,9 +189,6 @@ def address_delete_window():
         event, values = Windows.read()
         if event == sg.WIN_CLOSED:
             break
-        elif event == 'See if the client exists':
-            client_exists = client.search_client(values['client_mail'])
-            Windows["client_exists"].update(client_exists)
         elif event == 'Search':
             addresses = address.get_client_addresses(values['client_mail'])
             if addresses == []:
